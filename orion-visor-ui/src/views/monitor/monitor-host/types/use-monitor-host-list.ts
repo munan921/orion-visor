@@ -16,8 +16,6 @@ export interface UseMonitorHostListOptions {
   hosts: Ref<Array<MonitorHostQueryResponse>>;
   // 设置加载中
   setLoading: (loading: boolean) => void;
-  // 重新加载
-  reload: () => void;
 }
 
 // 使用监控主机列表
@@ -29,7 +27,7 @@ export default function useMonitorHostList(options: UseMonitorHostListOptions) {
 
   const router = useRouter();
   const { toggleDict } = useDictStore();
-  const { hosts, setLoading, reload } = options;
+  const { hosts, setLoading } = options;
 
   // 打开详情
   const openDetail = (hostId: number, name: string) => {
@@ -65,10 +63,18 @@ export default function useMonitorHostList(options: UseMonitorHostListOptions) {
         onOk: async () => {
           try {
             // 调用安装
-            await installHostAgent({ idList: hostIdList });
+            const { data } = await installHostAgent({ idList: hostIdList });
             Message.success('开始安装');
-            // 重新加载
-            reload();
+            // 设置状态
+            installHosts.forEach(host => {
+              const installId = data[host.agentKey];
+              if (installId) {
+                host.installLog = {
+                  id: installId,
+                  eventStatus: AgentLogStatus.WAIT,
+                } as any;
+              }
+            });
           } finally {
             setLoading(false);
           }
