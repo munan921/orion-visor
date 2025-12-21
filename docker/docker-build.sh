@@ -189,7 +189,7 @@ function push_image_to_registry() {
       # 推送版本
       docker push "${namespace}/${image_name}:${version}"
       # 推送 latest
-      if [ "latest_image" = true ]; then
+      if [ "$latest_image" = true ]; then
         docker push "${namespace}/${image_name}:latest"
       fi
     done
