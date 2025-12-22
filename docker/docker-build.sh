@@ -140,7 +140,7 @@ function modify_dockerfiles() {
     if [ -f "$file" ]; then
       echo "备份并修改: $file"
       cp "$file" "$file$backup_suffix"
-      sed -i 's/--platform=\TARGETPLATFORM//g' "$file"
+      sed -i "s/--platform=\$TARGETPLATFORM//g" "$file"
     else
       echo "文件不存在 -> $file"
     fi
