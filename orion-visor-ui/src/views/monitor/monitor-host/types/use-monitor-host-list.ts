@@ -61,7 +61,7 @@ export default function useMonitorHostList(options: UseMonitorHostListOptions) {
         content: () => {
           // 提示消息
           const installConfirmContent = [
-            '请确认服务器 (${home}/orion-visor/) 文件夹是否有读写权限',
+            '请确认服务器 (${home}/orion/orion-visor/) 文件夹是否有读写权限',
             'Linux 系统为 root 安装, 将会自动注册为服务 (systemctl)',
             'Linux 系统非 root 安装, 服务器重启后需要手动重启探针 (nohup)',
             hasWindows ? 'Windows 系统仅支持探针上传, 请手动进行安装' : '',
