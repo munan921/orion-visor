@@ -70,6 +70,10 @@
 # clone
 git clone --depth=1 https://github.com/dromara/orion-visor
 cd orion-visor
+# 复制配置
+cp .env.example .env
+# 修改配置
+vim .env
 # 启动
 docker compose up -d
 # 等待后端服务启动后 (2min±) 访问 http://localhost:1081/
