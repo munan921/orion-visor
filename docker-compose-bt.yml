@@ -1,3 +1,5 @@
+# https://github.com/aaPanel/appstore/tree/main/apps/orion_visor
+
 services:
   orion-ui:
     image: registry.cn-hangzhou.aliyuncs.com/orionsec/orion-visor-ui:latest
@@ -159,20 +161,6 @@ services:
       timeout: 5s
       retries: 10
       start_period: 10s
-    networks:
-      - baota_net
-
-  orion-adminer:
-    image: registry.cn-hangzhou.aliyuncs.com/orionsec/orion-visor-adminer:latest
-    ports:
-      - "8081:8080"
-    environment:
-      ADMINER_DEFAULT_SERVER: ${MYSQL_HOST:-mysql}
-    depends_on:
-      orion-mysql:
-        condition: service_healthy
-    labels:
-      createdBy: "bt_apps"
     networks:
       - baota_net
 
